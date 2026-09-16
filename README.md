@@ -1,5 +1,6 @@
 1/clone code về 
-2/ chạy sql ở CustomerManagement.Api/Data/Data_CEP.sql
+2.1:mở sql sever tạo database có tên là CustomerManagementDb
+2.2: chạy sql ở CustomerManagement.Api/Data/Data_CEP.sql
 3/ sửa appsettings.json 
 phần   "AllowedHosts": "*",
   "ConnectionStrings": {
