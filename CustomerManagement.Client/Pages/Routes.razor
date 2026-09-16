@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Routing
+
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(Program).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    @if (context.User.Identity?.IsAuthenticated != true)
+                    {
+                        <!-- Khi chưa đăng nhập: Tự động điều hướng sang trang Login -->
+                        <RedirectToLogin />
+                    }
+                    else
+                    {
+                        <!-- Đã đăng nhập nhưng không đủ quyền (Role/Policy) -->
+                        <div class="p-4 text-center">
+                            <h3 class="text-danger">Access Denied</h3>
+                            <p>Bạn không có quyền truy cập vào chức năng này.</p>
+                        </div>
+                    }
+                </NotAuthorized>
+            </AuthorizeRouteView>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <PageTitle>Not Found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p class="p-3" role="alert">Trang bạn tìm kiếm không tồn tại.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
